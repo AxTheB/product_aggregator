@@ -1,0 +1,4 @@
+DATABASE_URL=
+OFFERS_URL=https://applifting-python-excercise-ms.herokuapp.com/api/v1
+DJANGO_ALLOWED_HOSTS="localhost,127.0.0.1"
+SECRET_KEY=
