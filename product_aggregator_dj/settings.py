@@ -16,11 +16,12 @@ import environ
 
 # import setting from .env file and environment variables
 env = environ.Env()
-environ.Env.read_env()
+
 ROOT_DIR = (
         environ.Path(__file__) - 2
 )
 env.read_env(str(ROOT_DIR.path(".env")))
+BASE_DIR = str(ROOT_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
