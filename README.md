@@ -31,11 +31,12 @@ List all products
 
 Request: -  
 Response: 200 OK
-```json[
+```json
+[
     {
         "id": "<uuid>",
-        "name": <string>,
-        "description": <string>
+        "name": "<string>",
+        "description": "<string>"
     }
 ]
 ```
