@@ -59,7 +59,7 @@ HTTP 201 Created
     "description": "Cube full of mighty, scary, ruthless cyborgs. Will not buy again"
 }
 ```
-HTTP 400 Bad Request
+HTTP 400 Bad Request  
 Returns either general error:
 ```html
 
@@ -79,7 +79,7 @@ or field error(s):
 }
 ```
 
-### GET /products/:uuid:
+### GET /products/:id:
 Get product detail
 
 Request: -  
@@ -100,24 +100,24 @@ Returns human-readable "Not found" page for malformed uuid. For well-formed but 
 }
 ```
 
-### POST /products/:uuid:
+### POST /products/:id:
 Update product info. Will not try to register the updated product.
 Request and Response same as product creation
 
-### DELETE /products/:uuid:
+### DELETE /products/:id:
 Delete product. Has no way to notify Offers service, but stops polling for price changes.
 
 Request: -  
 Response:  
 204 No Content
 
-### GET /products/:uuid:/prices
+### GET /products/:id:/prices
 Request: -
 Response:
 200 OK
 ```json
 {
-    "prices": [1392,... , 2023],
+    "prices": [1392, 2023],
     "change": 145.33045977011494
 }
 ```
