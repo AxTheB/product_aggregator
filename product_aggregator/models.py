@@ -13,6 +13,7 @@ class TrackedRecord(models.Model):
 
     class Meta:
         abstract = True
+        get_latest_by = "created"
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created = models.DateTimeField(auto_now_add=True)
