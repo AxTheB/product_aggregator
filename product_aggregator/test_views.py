@@ -144,12 +144,14 @@ def test_offers_for_one_product_limited(product_factory, offer_factory, api_clie
         times.append(o.created.isoformat())
     start = times[1]
     end = times[-2]
-    print("start:", start)
-    print("end:", end)
     url = reverse('product_aggregator:product-detail-prices', kwargs={'pk': product.pk})
     response = api_client.get(url, data={'from': start, 'to': end})
-    print(response)
     assert response.status_code == 200
     content = json.loads(response.content)
     assert content['prices'] == [2, 3, 4, 5, 6, 7, 8, 9]
     assert content['change'] == 450.0
+    response = api_client.get(url, data={'from': start})
+    assert response.status_code == 200
+    content = json.loads(response.content)
+    assert content['prices'] == [2, 3, 4, 5, 6, 7, 8, 9, 10]
+    assert content['change'] == 500.0
