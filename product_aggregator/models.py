@@ -29,7 +29,7 @@ class Product(TrackedRecord):
 
 class Offer(TrackedRecord):
     """product is offered for some price somewhere"""
-    remote_id = models.IntegerField()  # doc does not
+    remote_id = models.IntegerField()
     price = models.IntegerField()
     items_in_stock = models.IntegerField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='offers')
