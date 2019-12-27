@@ -18,6 +18,14 @@ Direct setup:
      - asgi server from command line `daphne product_aggregator_dj.asgi:application`
 * start the price updater task: `./manage.py runscript product_aggregator.scripts.price_updater`
 
+Testing
+----------
+* cd product_aggregator
+* make another virtual env
+* pip install -r reqs/test.txt
+* Ensure database user has rights to create database
+* (optional) set OFFERS_TEST_URL 
+* run pytest
 
 Using the service
 -----------------
