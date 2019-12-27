@@ -13,7 +13,9 @@ from .serializers import ProductSerializer, PriceInfoSerializer
 
 
 class SingleProduct(APIView):
-    def get_object(self, pk):
+
+    @staticmethod
+    def get_object(pk):
         try:
             return Product.objects.get(pk=pk)
         except Product.DoesNotExist:

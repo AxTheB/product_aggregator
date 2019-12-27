@@ -56,9 +56,9 @@ def test_product_create_locally(api_client, settings):
     content = json.loads(response.content)
     product = Product.objects.get(id=content['id'])
     assert product.name == content['name']
-    assert product.registered == None
+    assert product.registered is None
     settings.OFFERS_URL = settings.OFFERS_TEST_URL
-    assert offers.get_offers(product) == False
+    assert offers.get_offers(product) is False
 
 
 @pytest.mark.skipif(django_settings.OFFERS_TEST_URL is None, reason="OFFERS_TEST_URL not set up")
@@ -73,8 +73,8 @@ def test_product_create_register(api_client, settings):
     content = json.loads(response.content)
     product = Product.objects.get(id=content['id'])
     assert product.name == content['name']
-    assert product.registered != None
-    assert offers.get_offers(product) == True
+    assert product.registered is not None
+    assert offers.get_offers(product) is True
 
 
 # test product-detail
@@ -90,6 +90,7 @@ def test_one_product_detail(product, api_client):
     assert content['description'] == product.description
 
 
+# noinspection PyUnusedLocal
 @pytest.mark.django_db
 def test_one_product_detail_f(product, api_client):
     url = reverse('product_aggregator:product-detail', kwargs={'pk': uuid.uuid4()})
