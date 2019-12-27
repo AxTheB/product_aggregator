@@ -29,7 +29,7 @@ def get_auth_token():
 
     if tokens.count() == 1:  # we already had token
         return str(tokens[0].value)
-    elif tokens.count() == 0:  # get token from service
+    elif tokens.count() == 0 and settings.OFFERS_URL is not None:  # get token from service
         auth_url = settings.OFFERS_URL + '/auth'
         # we want json response
         headers = {
@@ -53,14 +53,14 @@ def register_product(product):
         'name': product.name,
         'description': product.description
     }
-    headers = {
-        # 'Accept': 'application/json',
-        'Bearer': get_auth_token(),
-    }
-    register_product_url = settings.OFFERS_URL + '/products/register'
-    register_product_request = requests.post(register_product_url, data=data, headers=headers)
-    if register_product_request.ok:
-        product.registered = now()
+    headers = {}
+
+    if settings.OFFERS_URL is not None:
+        headers.update({'Bearer': get_auth_token()})
+        register_product_url = settings.OFFERS_URL + '/products/register'
+        register_product_request = requests.post(register_product_url, data=data, headers=headers)
+        if register_product_request.ok:
+            product.registered = now()
 
     else:
         # here we can check register_product_request.status_code and act on it.
@@ -69,8 +69,9 @@ def register_product(product):
 
 
 def get_offers(product):
-    """lists new offers for product"""
-
+    """lists new offers for product and saves them to database"""
+    if settings.OFFERS_URL is None:
+        return False
     offers_url = settings.OFFERS_URL + '/products/{id}/offers'.format(id=product.id)
 
     headers = {
@@ -91,6 +92,7 @@ def get_offers(product):
             # I assume the offers in service are immutable. If not then save always and maybe update timestamp
             if created:
                 db_offer.save()
+        return True
     else:
         if not offers_request.ok:
             if offers_request.status_code == 400:
@@ -98,6 +100,7 @@ def get_offers(product):
             if offers_request.status_code == 401:
                 raise OffersAuthException(offers_request.json()['msg'])
             # we hit 404
+        return False
 
 
 def update_offers_for_products():

@@ -103,7 +103,7 @@ Returns human-readable "Not found" page for malformed uuid. For well-formed but 
 
 ### POST /products/:id:
 Update product info. Will not try to register the updated product.
-Request and Response same as product creation
+Request and Response same as product creation except status code, which is 200 OK
 
 ### DELETE /products/:id:
 Delete product. Has no way to notify Offers service, but stops polling for price changes.

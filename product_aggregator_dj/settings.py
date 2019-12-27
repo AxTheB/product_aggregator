@@ -133,4 +133,7 @@ STATIC_URL = '/static/'
 
 OFFERS_URL = env('OFFERS_URL')
 
+# OFFERS_TEST_URL = env('OFFERS_TEST_URL', default='https://applifting-python-excercise-ms.herokuapp.com/api/v1')
+OFFERS_TEST_URL = env('OFFERS_TEST_URL', default=None)
+
 STATIC_ROOT = str(ROOT_DIR.path('static'))

@@ -81,9 +81,7 @@ class PriceInfo(SingleProduct):
 
     def get(self, request, pk, format=None):
         product = self.get_object(pk)
-        print("req.:", request.GET)
         start = self.get_date_or_false(request.GET.get('from', None))
         end = self.get_date_or_false(request.GET.get('to', None))
-        print(start, end)
         serializer = PriceInfoSerializer(product, start, end)
         return Response(serializer.data)

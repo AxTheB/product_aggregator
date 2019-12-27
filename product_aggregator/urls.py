@@ -6,9 +6,9 @@ from .views import ProductDetail, ProductList, PriceInfo
 app_name = 'product_aggregator'
 
 urlpatterns = [
-    path('', ProductList.as_view()),
-    path('<uuid:pk>', ProductDetail.as_view()),
-    path('<uuid:pk>/prices', PriceInfo.as_view()),
+    path('', ProductList.as_view(), name='product-list'),
+    path('<uuid:pk>', ProductDetail.as_view(), name='product-detail'),
+    path('<uuid:pk>/prices', PriceInfo.as_view(), name='product-detail-prices'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
