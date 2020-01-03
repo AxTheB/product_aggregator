@@ -1,21 +1,19 @@
 {
-  "name": "Product aggregator",
-  "description": "A product aggregator for Applifting.",
-  "image": "heroku/python",
-  "keywords": ["python", "django" ],
-  "addons": [ "heroku-postgresql" ],
-  "env": {
-    "SECRET_KEY": {
-      "description": "The secret key for the Django application.",
-      "generator": "secret"
+    "name": "Product aggregator",
+    "description": "A product aggregator for Applifting.",
+    "addons": [ "heroku-postgresql" ],
+    "env": {
+        "SECRET_KEY": {
+            "description": "The secret key for the Django application.",
+            "generator": "secret"
+        }
+    },
+    "environments": {
+        "test": {
+            "scripts": {
+                "test-setup": "pip install -r reqs/test.txt",
+                "test": "pytest"
+            }
+        }
     }
-  },
-  "environments": {
-    "test": {
-      "scripts": {
-        "test-setup": "pip install -r reqs/test.txt",
-        "test": "pytest"
-      }
-    }
-  }
 }
