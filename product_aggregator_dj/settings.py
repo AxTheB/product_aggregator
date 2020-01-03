@@ -127,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_URL = '/static/'
 
-OFFERS_URL = env('OFFERS_URL')
+OFFERS_URL = env('OFFERS_URL', default='https://applifting-python-excercise-ms.herokuapp.com/api/v1')
 
 OFFERS_TEST_URL = env('OFFERS_TEST_URL', default=None)
 
