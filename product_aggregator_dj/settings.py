@@ -23,6 +23,7 @@ ROOT_DIR = (
 env.read_env(str(ROOT_DIR.path(".env")))
 BASE_DIR = str(ROOT_DIR)
 
+SECRET_KEY = env('SECRET_KEY', default='this is very default key, sadly')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -137,4 +138,4 @@ try:
     import django_heroku
     django_heroku.settings(locals())
 except ImportError:
-    SECRET_KEY = env('SECRET_KEY')
+    pass
