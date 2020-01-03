@@ -34,8 +34,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DJANGO_DEBUG', default=False)
 DJANGO_ADMIN = env('DJANGO_ADMIN', default=False)
 
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
-# , default=["localhost", "127.0.0.1"])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[])
 
 # Application definition
 
@@ -136,3 +135,9 @@ OFFERS_URL = env('OFFERS_URL')
 OFFERS_TEST_URL = env('OFFERS_TEST_URL', default=None)
 
 STATIC_ROOT = str(ROOT_DIR.path('static'))
+
+try:
+    import django_heroku
+    django_heroku.settings(locals())
+except ImportError:
+    pass
