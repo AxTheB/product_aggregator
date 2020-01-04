@@ -2,7 +2,7 @@
 Microservice which allows to browse product catalog and keeps track of prices
 
 ## Setting up
-###Direct setup:
+### Direct setup:
 * Clone app
 * cd product_aggregator
 * make virtual env
@@ -16,7 +16,7 @@ Microservice which allows to browse product catalog and keeps track of prices
      - asgi server from command line `daphne product_aggregator_dj.asgi:application`
 * start the price updater task: `./manage.py runscript product_aggregator.scripts.price_updater`
 
-###Heroku:
+### Heroku:
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 Testing
