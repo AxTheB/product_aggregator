@@ -38,7 +38,7 @@ def get_auth_token():
             remote_token_request = requests.post(auth_url, data={}, headers=headers)
             if remote_token_request.status_code == 201:
                 token = remote_token_request.json()['access_token']
-                db_token = Token(value=token, unique=1)
+                db_token = Token(value=token, blocker=1)
                 try:
                     db_token.save()
                 except IntegrityError:
