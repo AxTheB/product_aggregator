@@ -1,5 +1,6 @@
 import requests
 from django.conf import settings
+from django.db import IntegrityError
 from django.utils.timezone import now
 
 from .models import Token, Product, Offer
@@ -21,29 +22,29 @@ class OffersBadRequest(OffersServiceError):
 
 def get_auth_token():
     """Gets auth token from database or from remote location
-    raises AuthException if it can not get the remote token or there are more tokens in db
+    raises AuthException if it can not get the remote token
     returns uuid-token
     """
-
-    tokens = Token.objects.all()
-
-    if tokens.count() == 1:  # we already had token
-        return str(tokens[0].value)
-    elif tokens.count() == 0 and settings.OFFERS_URL is not None:  # get token from service
-        auth_url = settings.OFFERS_URL + '/auth'
-        # we want json response
-        headers = {
-            #    'Accept': 'application/json'
-        }
-        remote_token_request = requests.post(auth_url, data={}, headers=headers)
-        if remote_token_request.status_code == 201:
-            token = remote_token_request.json()['access_token']
-            db_token = Token(value=token)
-            db_token.save()
-            return token
-        raise OffersAuthException('Unable to obtain token')
-    else:
-        raise OffersAuthException('Multiple tokens obtained')
+    try:
+        token = Token.objects.get(blocker=1)
+        return str(token.value)
+    except Token.DoesNotExist:
+        if settings.OFFERS_URL is not None:  # get token from service
+            auth_url = settings.OFFERS_URL + '/auth'
+            # we want json response
+            headers = {
+                #    'Accept': 'application/json'
+            }
+            remote_token_request = requests.post(auth_url, data={}, headers=headers)
+            if remote_token_request.status_code == 201:
+                token = remote_token_request.json()['access_token']
+                db_token = Token(value=token, unique=1)
+                try:
+                    db_token.save()
+                except IntegrityError:
+                    return get_auth_token()
+                return token
+    raise OffersAuthException('Unable to obtain token')
 
 
 def register_product(product):

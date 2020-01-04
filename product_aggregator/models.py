@@ -6,6 +6,7 @@ from django.db import models
 class Token(models.Model):
     """stores app-wide token to offers microservice."""
     value = models.UUIDField()
+    blocker = models.IntegerField(unique=True)
 
 
 class TrackedRecord(models.Model):
