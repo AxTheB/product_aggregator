@@ -1,6 +1,7 @@
 {
     "name": "Product aggregator",
     "description": "A product aggregator for Applifting.",
+    "repository": "https://github.com/AxTheB/product_aggregator",
     "addons": [ "heroku-postgresql" ],
     "env": {
         "SECRET_KEY": {
@@ -14,6 +15,14 @@
                 "test-setup": "pip install -r reqs/test.txt",
                 "test": "pytest"
             }
+        }
+    },
+    "formation": {
+        "web": {
+            "quantity": 1
+        },
+        "worker": {
+            "quantity": 1
         }
     }
 }

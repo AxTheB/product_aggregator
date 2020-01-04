@@ -1,3 +1,2 @@
 -r reqs/prod.txt
-gunicorn
 django-heroku
